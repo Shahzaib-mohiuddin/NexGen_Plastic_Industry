@@ -6886,6 +6886,10 @@ p.small, .small-text {
     text-transform: uppercase;
     display: block;
     margin-bottom: 1rem;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .cta-left h2 {
@@ -8414,7 +8418,7 @@ p.small, .small-text {
     gap: 0.5rem;
     padding: 0.875rem 2rem;
     background: #16a89a;
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 500;
@@ -8523,6 +8527,10 @@ p.small, .small-text {
     color: #16a89a;
     margin-bottom: 1rem;
     font-weight: 600;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .why-header h2 {

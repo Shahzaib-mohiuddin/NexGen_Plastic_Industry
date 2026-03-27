@@ -94,7 +94,7 @@ function updateNavbar() {
         return;
     }
     
-    if (currentScrollY > heroHeight - 50) {
+    if (currentScrollY >= heroHeight) {
         navbar.classList.add('fixed-nav');
     } else {
         navbar.classList.remove('fixed-nav');
