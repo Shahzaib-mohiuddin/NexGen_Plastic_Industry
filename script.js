@@ -259,7 +259,7 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         
         // Here you would typically send the data to a server
-        console.log('Form submitted:', Object.fromEntries(formData));
+        // Form submitted
         
         // Show success message
         alert('Thank you for your message! We will get back to you soon.');
@@ -479,7 +479,7 @@ const connectionAwareLoading = () => {
                 video.poster = video.querySelector('source')?.src?.replace('.mp4', '-poster.jpg') || '';
             });
             
-            console.log('Slow connection detected - video autoplay disabled');
+            // Slow connection detected - video autoplay disabled
         }
     }
 };
@@ -548,14 +548,8 @@ if (applicationForm) {
         const formData = new FormData(this);
         
         // Log form data (in production, this would be sent to a server)
-        console.log('Application submitted:');
-        for (let [key, value] of formData.entries()) {
-            if (value instanceof File) {
-                console.log(`${key}: ${value.name} (${(value.size / 1024).toFixed(2)} KB)`);
-            } else {
-                console.log(`${key}: ${value}`);
-            }
-        }
+        // Application submitted
+        // Form data processed
         
         // Show success message
         alert('Thank you for your application! Our HR team will review your resume and get back to you soon.');
