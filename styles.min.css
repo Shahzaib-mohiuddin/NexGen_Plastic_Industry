@@ -1,4 +1,4 @@
-/* IPL Schoeller Style Clone - Reset and Base */
+/* NexGen Schoeller Style Clone - Reset and Base */
 * {
     margin: 0;
     padding: 0;
@@ -133,7 +133,7 @@ p.small, .small-text {
 }
 
 /* ============================================
-   TOP BAR - IPL Style
+   TOP BAR - NexGen Style
    ============================================ */
 .top-bar {
     position: absolute;
@@ -240,7 +240,7 @@ p.small, .small-text {
 }
 
 /* ============================================
-   NAVIGATION - IPL Style (Transparent to White)
+   NAVIGATION - (Transparent to White)
    ============================================ */
 .navbar-nexgen {
     position: absolute;
@@ -351,7 +351,7 @@ p.small, .small-text {
     text-decoration: none;
     color: #ffffff;
     font-size: 0.875rem;
-    font-weight: 400;
+    font-weight: 600;
     transition: opacity var(--duration-fast) var(--ease-out-expo),
                 color var(--duration-fast) var(--ease-out-expo);
     position: relative;
@@ -364,13 +364,13 @@ p.small, .small-text {
     background: transparent;
 }
 
-/* Contact Button - IPL Style */
+/* Contact Button - NexGen Style */
 .nav-menu-nexgen .contact-btn {
     background: #2ecc40;
     color: #ffffff !important;
     padding: 0.6rem 1.5rem !important;
     border-radius: 20px;
-    font-weight: 500;
+    font-weight: 600;
     margin-left: 0.5rem;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -384,7 +384,7 @@ p.small, .small-text {
     opacity: 1 !important;
 }
 
-/* Dropdown Menu Styles - IPL Classic Style */
+/* Dropdown Menu Styles - NexGen Classic Style */
 .nav-menu-nexgen .dropdown {
     position: relative;
 }
@@ -413,7 +413,7 @@ p.small, .small-text {
     pointer-events: none;
 }
 
-/* Dropdown menu styles - IPL Style */
+/* Dropdown menu styles - NexGen Style */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -466,7 +466,7 @@ p.small, .small-text {
     pointer-events: auto;
 }
 
-/* Dropdown menu items - IPL Style */
+/* Dropdown menu items - NexGen Style */
 .dropdown-menu a {
     display: block;
     padding: 0.45rem 1.1rem;
@@ -507,7 +507,7 @@ p.small, .small-text {
     opacity: 1;
 }
 
-/* Dropdown Footer - IPL Style */
+/* Dropdown Footer - NexGen Style */
 .dropdown-footer {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     margin-top: 0.3rem;
@@ -1072,7 +1072,7 @@ p.small, .small-text {
     }
 }
 
-/* Hero Section - IPL Style */
+/* Hero Section - NexGen Style */
 .hero-nexgen {
     height: 100vh;
     position: relative;
@@ -1292,7 +1292,7 @@ p.small, .small-text {
     display: block;
 }
 
-/* Buttons - IPL Style */
+/* Buttons - NexGen Style */
 .btn-nexgen-link {
     display: inline-flex;
     align-items: center;
@@ -2148,7 +2148,7 @@ p.small, .small-text {
     color: white;
 }
 
-/* IPL Form Styles */
+/* NexGen Form Styles */
 .contact-nexgen-form {
     position: relative;
     z-index: 1;
@@ -2289,7 +2289,7 @@ p.small, .small-text {
     transform: translateX(4px);
 }
 
-/* Footer IPL Style */
+/* Footer NexGen Style */
 .footer-nexgen {
     background: #173257;
     color: white;
@@ -6589,7 +6589,7 @@ p.small, .small-text {
     border-radius: 0;
 }
 
-/* Sustainable Impact Section - IPL Style Full Width */
+/* Sustainable Impact Section - NexGen Style Full Width */
 .about-sustainable-impact-nexgen {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('images/earth-planet.webp') no-repeat center center/cover;
@@ -6744,7 +6744,7 @@ p.small, .small-text {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Purpose & Ambition Section - IPL Style */
+/* Purpose & Ambition Section - NexGen Style */
 .about-purpose-nexgen {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -8031,7 +8031,7 @@ p.small, .small-text {
 }
 
 /* ============================================
-   SUSTAINABILITY PAGE - IPL Style
+   SUSTAINABILITY PAGE - NexGen Style
    ============================================ */
 
 /* Sustainability Hero Section */
