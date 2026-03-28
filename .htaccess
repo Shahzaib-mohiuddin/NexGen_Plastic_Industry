@@ -1,46 +1,30 @@
-# Enable Rewrite Engine
 RewriteEngine On
-RewriteBase /
 
-# Force HTTPS (optional - uncomment if you want to force SSL)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Remove trailing slashes (except for directories)
+# Remove trailing slash (except for root)
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} (.+)/$
-RewriteRule ^ %1 [R=301,L]
+RewriteRule ^(.*)/$ /$1 [R=301,L]
 
-# Redirect .html URLs to clean URLs (301 permanent redirect)
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
-RewriteRule ^ %1 [R=301,L]
+# Redirect index.html to /
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
 
-# Add .html extension internally (rewrite, not redirect)
+# Redirect all .html URLs to clean URLs (301 permanent)
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Internally serve clean URLs from .html files
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.+)$ $1.html [L,QSA]
-
-# Handle directory index files
-DirectoryIndex index.html index.htm
-
-# Prevent directory browsing (fixes 403 on /products/ etc)
-Options -Indexes
-
-# Custom error pages (optional)
-ErrorDocument 404 /404.html
-ErrorDocument 403 /index.html
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 # Enable GZIP Compression
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml application/atom+xml image/svg+xml
 </IfModule>
 
-# Browser Caching - Set long cache times for static assets
+# Browser Caching
 <IfModule mod_expires.c>
     ExpiresActive On
-    
-    # Images - 1 year
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
@@ -49,54 +33,35 @@ ErrorDocument 403 /index.html
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/x-icon "access plus 1 year"
     ExpiresByType image/ico "access plus 1 year"
-    
-    # Video - 1 year
     ExpiresByType video/mp4 "access plus 1 year"
     ExpiresByType video/webm "access plus 1 year"
-    
-    # CSS and JavaScript - 1 year
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType text/javascript "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType application/x-javascript "access plus 1 year"
-    
-    # Fonts - 1 year
     ExpiresByType font/ttf "access plus 1 year"
     ExpiresByType font/otf "access plus 1 year"
     ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType application/font-woff "access plus 1 year"
-    
-    # HTML - 1 hour
     ExpiresByType text/html "access plus 1 hour"
-    
-    # Default - 1 month
     ExpiresDefault "access plus 1 month"
 </IfModule>
 
 # Cache-Control Headers
 <IfModule mod_headers.c>
-    # Images
     <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
-    
-    # CSS and JavaScript
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
-    
-    # Fonts
     <FilesMatch "\.(ttf|otf|woff|woff2)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
-    
-    # HTML
     <FilesMatch "\.(html|htm)$">
         Header set Cache-Control "max-age=3600, public, must-revalidate"
     </FilesMatch>
-    
-    # Remove ETags
     Header unset ETag
 </IfModule>
 
@@ -111,7 +76,7 @@ FileETag None
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# Enable HTTP/2 Server Push (if supported)
+# HTTP/2 Server Push
 <IfModule mod_http2.c>
     H2Push on
     H2PushPriority * after
