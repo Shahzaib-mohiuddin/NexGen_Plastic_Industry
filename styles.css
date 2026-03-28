@@ -1081,9 +1081,17 @@ p.small, .small-text {
     justify-content: center;
     background-color: #1a365d; /* Fallback color matching image tones */
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                url('images/home-hero-banner-v2.webp') center/cover no-repeat fixed;
+                url('images/home-hero-banner-mobile.webp') center/cover no-repeat fixed;
     color: white;
     text-align: center;
+}
+
+/* Desktop hero image - higher resolution for larger screens */
+@media (min-width: 768px) {
+    .hero-nexgen {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                    url('images/home-hero-banner-v2.webp') center/cover no-repeat fixed;
+    }
 }
 
 .hero-nexgen-content {
