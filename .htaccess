@@ -1,22 +1,25 @@
 RewriteEngine On
 
-# Remove trailing slash when a matching .html file exists (e.g. /products/ -> /products)
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-RewriteRule ^(.*)/$ /$1 [R=301,L]
+# Prevent Apache from auto-adding trailing slash to directories
+# This fixes the download popup on /products and /industries
+DirectorySlash Off
 
-# Remove trailing slash for non-directories
-RewriteCond %{REQUEST_FILENAME} !-d
+# Skip rewriting for actual static files (improves page load speed)
+RewriteRule \.(css|js|jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|otf|mp4|webm|pdf|xml|txt)$ - [L]
+
+# Remove trailing slash (except root /)
+RewriteCond %{REQUEST_URI} !^/$
 RewriteRule ^(.*)/$ /$1 [R=301,L]
 
 # Redirect index.html to /
 RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
 RewriteRule ^index\.html$ / [R=301,L]
 
-# Redirect all .html URLs to clean URLs (301 permanent)
+# Redirect .html URLs to clean URLs (301 permanent)
 RewriteCond %{THE_REQUEST} \s/([^.]+)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
 
-# Internally serve .html file (prioritize over directory with same name)
+# Serve .html file for clean URLs (prioritize over directory with same name)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^(.+)$ $1.html [L]
