@@ -1,3 +1,36 @@
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS (optional - uncomment if you want to force SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove trailing slashes (except for directories)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# Redirect .html URLs to clean URLs (301 permanent redirect)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Add .html extension internally (rewrite, not redirect)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L,QSA]
+
+# Handle directory index files
+DirectoryIndex index.html index.htm
+
+# Prevent directory browsing (fixes 403 on /products/ etc)
+Options -Indexes
+
+# Custom error pages (optional)
+ErrorDocument 404 /404.html
+ErrorDocument 403 /index.html
+
 # Enable GZIP Compression
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml application/atom+xml image/svg+xml
