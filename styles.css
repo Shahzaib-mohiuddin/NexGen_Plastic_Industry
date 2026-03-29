@@ -351,7 +351,7 @@ p.small, .small-text {
     text-decoration: none;
     color: #ffffff;
     font-size: 0.875rem;
-    font-weight: 400;
+    font-weight: 600;
     transition: opacity var(--duration-fast) var(--ease-out-expo),
                 color var(--duration-fast) var(--ease-out-expo);
     position: relative;
