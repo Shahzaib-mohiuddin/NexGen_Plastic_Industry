@@ -466,6 +466,18 @@ p.small, .small-text {
     pointer-events: auto;
 }
 
+/* Show dropdown on touch devices in desktop view (first tap opens) */
+.dropdown.touch-open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateZ(0);
+    pointer-events: auto;
+}
+
+.dropdown.touch-open > a::after {
+    transform: translateY(-50%) rotate(180deg) translateZ(0);
+}
+
 /* Dropdown menu items - NexGen Style */
 .dropdown-menu a {
     display: block;
@@ -1086,8 +1098,16 @@ p.small, .small-text {
     text-align: center;
 }
 
-/* Desktop hero image - higher resolution for larger screens */
+/* iPad/Tablet Retina hero image (2x density) */
 @media (min-width: 768px) {
+    .hero-nexgen {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                    url('images/home-hero-banner-2x.webp') center/cover no-repeat fixed;
+    }
+}
+
+/* Desktop hero image - higher resolution for larger screens */
+@media (min-width: 1200px) {
     .hero-nexgen {
         background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                     url('images/home-hero-banner-v2.webp') center/cover no-repeat fixed;

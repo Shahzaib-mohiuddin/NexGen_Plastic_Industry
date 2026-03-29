@@ -38,22 +38,36 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Handle dropdown toggle on mobile
+// Handle dropdown toggle on mobile and touch devices
+const isTouchDevice = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 const dropdownToggles = document.querySelectorAll('.dropdown > .dropdown-toggle');
 dropdownToggles.forEach(toggle => {
     toggle.addEventListener('click', function(e) {
-        if (window.innerWidth <= 1138) { // Mobile/Tablet view
+        const parent = this.parentElement;
+        if (window.innerWidth <= 1138) {
+            // Mobile/Tablet drawer view
             e.preventDefault();
-            const parent = this.parentElement;
-            const isActive = parent.classList.contains('active');
-            
-            // Close all other dropdowns first
             closeAllDropdowns(parent);
-            
-            // Toggle this dropdown
             parent.classList.toggle('active');
+        } else if (isTouchDevice) {
+            // Touch device in desktop navbar view (e.g. iPad landscape)
+            // First tap: open dropdown, prevent navigation
+            // Second tap (dropdown already open): navigate to link
+            if (!parent.classList.contains('touch-open')) {
+                e.preventDefault();
+                closeAllDropdowns(parent);
+                document.querySelectorAll('.dropdown.touch-open').forEach(d => d.classList.remove('touch-open'));
+                parent.classList.add('touch-open');
+            }
         }
     });
+});
+
+// Close touch-opened dropdowns when tapping outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown.touch-open').forEach(d => d.classList.remove('touch-open'));
+    }
 });
 
 // Close dropdowns when clicking on a nav link
