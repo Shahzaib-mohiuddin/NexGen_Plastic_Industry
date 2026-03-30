@@ -1,0 +1,10 @@
+# robots.txt for nexgenplasticsme.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://nexgenplasticsme.com/sitemap.xml
+
+# Disallow crawling of performance optimizer (internal tool)
+Disallow: /performance-optimizer.html
