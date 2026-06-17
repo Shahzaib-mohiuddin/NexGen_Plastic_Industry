@@ -41,6 +41,10 @@
     <!-- Swiper CSS - deferred loading -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
+
+    <!-- intl-tel-input (phone field with country picker) - deferred loading -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css"></noscript>
 </head>
 <body>
     <!-- Top Bar -->
@@ -375,51 +379,55 @@
             <div class="contact-nexgen-grid">
                 <div class="contact-nexgen-info">
                     <span class="section-label-nexgen">GET IN TOUCH</span>
-                    <h2>Contact us today to explore how our solutions can work for your business</h2>
-                    <p>We help you navigate the complexities of your industry as your trusted partner.</p>
+                    <h2>Contact Us</h2>
+                    <p>lormep for now.</p>
                 </div>
                 
                 <div class="contact-nexgen-form">
                     <form class="nexgen-form" id="contactForm">
                         <div class="form-group-nexgen">
-                            <label>Your Name*</label>
+                            <label>Name*</label>
                             <input type="text" name="name" required placeholder="Enter your full name">
                         </div>
                         <div class="form-group-nexgen">
-                            <label>Email*</label>
-                            <input type="email" name="email" required placeholder="your.email@example.com">
+                            <label>Contact*</label>
+                            <input type="tel" id="contactPhone" name="contact" required placeholder="Enter your phone number">
                         </div>
                         <div class="form-group-nexgen">
-                            <label>Country*</label>
-                            <input type="text" name="country" required placeholder="Enter your country">
+                            <label>Business Email*</label>
+                            <input type="email" name="business_email" required placeholder="name@company.com">
                         </div>
                         <div class="form-group-nexgen">
-                            <label>City / Port*</label>
-                            <input type="text" name="city_port" required placeholder="Enter your city or port">
-                        </div>
-                        <div class="form-group-nexgen">
-                            <label>Phone / WhatsApp* (start with +)</label>
-                            <input type="tel" name="phone_whatsapp" required placeholder="+971 XXX XXX XXXX" pattern="[+][0-9]{1,4}[0-9]{6,15}">
-                        </div>
-                        <div class="form-group-nexgen">
-                            <label>Preferred contact method*</label>
-                            <div class="contact-methods">
-                                <label class="checkbox-option">
-                                    <input type="radio" name="preferred_contact" value="whatsapp" required>
-                                    <span class="checkmark"></span>
-                                    WhatsApp
+                            <label>Product Required*</label>
+                            <div class="product-list-nexgen" id="productRequiredList">
+                                <label class="product-option-nexgen">
+                                    <input type="radio" name="product_required" value="Plastic Pallets" required>
+                                    <span>Plastic Pallets</span>
                                 </label>
-                                <label class="checkbox-option">
-                                    <input type="radio" name="preferred_contact" value="email" required>
-                                    <span class="checkmark"></span>
-                                    Email
+                                <label class="product-option-nexgen">
+                                    <input type="radio" name="product_required" value="Small Containers" required>
+                                    <span>Small Containers</span>
                                 </label>
-                                <label class="checkbox-option">
-                                    <input type="radio" name="preferred_contact" value="call" required>
-                                    <span class="checkmark"></span>
-                                    Call
+                                <label class="product-option-nexgen">
+                                    <input type="radio" name="product_required" value="Large Containers" required>
+                                    <span>Large Containers</span>
+                                </label>
+                                <label class="product-option-nexgen">
+                                    <input type="radio" name="product_required" value="Waste Management" required>
+                                    <span>Waste Management</span>
                                 </label>
                             </div>
+                        </div>
+                        <div class="form-group-nexgen">
+                            <label>Size &amp; Model*</label>
+                            <div class="product-list-nexgen size-model-list-nexgen" id="sizeModelList">
+                                <p class="size-model-empty">Select a product above to see available sizes &amp; models.</p>
+                            </div>
+                        </div>
+                        <div class="form-group-nexgen">
+                            <label>City*</label>
+                            <input type="text" id="contactCity" name="city" list="cityOptionsNexgen" required placeholder="Pick your country in Contact, then choose a city" autocomplete="off">
+                            <datalist id="cityOptionsNexgen"></datalist>
                         </div>
                         <button type="submit" class="btn-nexgen-submit">Send <i class="fas fa-arrow-right"></i></button>
                     </form>
@@ -506,6 +514,7 @@
 
     <!-- Scripts - Deferred for better performance -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js" defer></script>
     <script src="script.min.js" defer></script>
 </body>
 </html>

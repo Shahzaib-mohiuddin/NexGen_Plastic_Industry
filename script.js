@@ -723,3 +723,136 @@ function showNotification(message) {
         }, 300);
     }, 3000);
 }
+
+/* ===== Home "Contact Us" form: Product Required -> Size & Model, phone country -> city suggestions ===== */
+(function () {
+    const PRODUCT_CATALOG = {
+        'Plastic Pallets': [
+            { name: 'Plastic Pallet NG-1210HY-16-3', size: 'L: 1200 x W: 1000 x H: 160mm' },
+            { name: 'Plastic Pallet NG-1212REV-14-6', size: 'L: 1200 x W: 1200 x H: 140mm' },
+            { name: 'Plastic Pallet NG-1113-15-6', size: 'L: 1300 x W: 1100 x H: 150mm' },
+            { name: 'Plastic Pallet NG-1210-14-9', size: 'L: 1200 x W: 1000 x H: 140mm' },
+            { name: 'Plastic Pallet NG-1210-15-5', size: 'L: 1200 x W: 1000 x H: 160mm' },
+            { name: 'Plastic Pallet NG-1210-15-3', size: 'L: 1200 x W: 1000 x H: 150mm' },
+            { name: 'Plastic Pallet NG-1210-15-5', size: 'L: 1200 x W: 1000 x H: 150mm' },
+            { name: 'Plastic Pallet NG-1111-15-6', size: 'L: 1100 x W: 1100 x H: 150mm' },
+            { name: 'Plastic Pallet NG-1208-15-3', size: 'L: 1200 x W: 800 x H: 150mm' },
+            { name: 'Plastic Pallet NG-1210-15-6', size: 'L: 1200 x W: 1000 x H: 150mm' }
+        ],
+        'Small Containers': [
+            { name: 'Plastic Crate Closed 60x40x28cm', size: 'L: 600 x W: 400 x H: 280mm' },
+            { name: 'Plastic Crate Closed 630x380x297mm', size: 'L: 630 x W: 380 x H: 297mm' },
+            { name: 'Plastic Crate Ventilated 630x380x297mm', size: 'L: 630 x W: 380 x H: 297mm' },
+            { name: 'Plastic Crate Closed 595x395x300mm', size: 'L: 595 x W: 395 x H: 300mm' },
+            { name: 'Plastic Crate Ventilated 595x395x300mm', size: 'L: 595 x W: 395 x H: 300mm' },
+            { name: 'Plastic Crate Closed 585x385x210mm', size: 'L: 585 x W: 385 x H: 210mm' },
+            { name: 'Plastic Crate With Bail Arm 600x400x253mm', size: 'L: 600 x W: 400 x H: 253mm' },
+            { name: 'Plastic Crate With Bail Arm 600x400x300mm', size: 'L: 600 x W: 400 x H: 300mm' },
+            { name: 'Plastic Bottle Crate 447x362x313mm', size: 'L: 447 x W: 362 x H: 313mm' },
+            { name: 'Plastic Nesting Crate 585x385x210mm (With Support)', size: 'L: 585 x W: 385 x H: 210mm' },
+            { name: 'Plastic Document Container 560x386x333mm', size: 'L: 560 x W: 386 x H: 333mm' },
+            { name: 'Plastic Fish Crate 600x400x350mm', size: 'L: 600 x W: 400 x H: 350mm' },
+            { name: 'Plastic Ventilated Crate For Fruits 510x327x290mm (TPC Crate)', size: 'L: 510 x W: 327 x H: 290mm' },
+            { name: 'Plastic Fish Crate Jumbo 1286x462x314mm', size: 'L: 1286 x W: 462 x H: 314mm' },
+            { name: 'Plastic Live Chicken Cage', size: 'Heavy-Duty Poultry Transport' },
+            { name: 'Plastic Nesting Crate 585x385x210mm', size: 'L: 585 x W: 385 x H: 210mm' },
+            { name: 'Attached Lid Crate ALC-250', size: 'Attached Lid Crate' },
+            { name: 'Attached Lid Crate ALC-320', size: 'Attached Lid Crate' },
+            { name: 'Attached Lid Crate ALC-365', size: 'Attached Lid Crate' },
+            { name: 'Attached Lid Crate ALC-416', size: 'Attached Lid Crate' }
+        ],
+        'Large Containers': [
+            { name: 'Foldable Pallet Box NG-1210-100', size: 'L: 1200 x W: 1000 x H: 1000mm' },
+            { name: 'Pallet Box NG1210/S2R', size: 'L: 1200 x W: 1000 x H: 800mm' },
+            { name: 'Pallet Box Lid NG-1210', size: 'L: 1200 x W: 1000 x H: 50mm' },
+            { name: 'Pallet Box NG-1208-80', size: 'L: 1200 x W: 800 x H: 800mm' },
+            { name: 'Pallet Box NG-1210-76', size: 'L: 1200 x W: 1000 x H: 760mm' },
+            { name: 'Pallet Box NG-1210-81', size: 'L: 1200 x W: 1000 x H: 810mm' },
+            { name: 'Pallet Box NG-1210-91', size: 'L: 1200 x W: 1000 x H: 910mm' }
+        ],
+        'Waste Management': [
+            { name: 'Waste Bin 120L', size: 'Capacity: 120 Liters' },
+            { name: 'Waste Bin 240L', size: 'Capacity: 240 Liters' },
+            { name: 'Waste Bin 360L', size: 'Capacity: 360 Liters' }
+        ]
+    };
+
+    function escapeAttr(value) {
+        return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    const productList = document.getElementById('productRequiredList');
+    const sizeModelList = document.getElementById('sizeModelList');
+
+    function renderSizeModel(category) {
+        if (!sizeModelList) return;
+        const items = PRODUCT_CATALOG[category] || [];
+        if (!items.length) {
+            sizeModelList.innerHTML = '<p class="size-model-empty">Select a product above to see available sizes &amp; models.</p>';
+            return;
+        }
+        sizeModelList.innerHTML = items.map(function (item) {
+            const value = item.size ? (item.name + ' \u2014 ' + item.size) : item.name;
+            return '<label class="product-option-nexgen">' +
+                '<input type="radio" name="size_model" value="' + escapeAttr(value) + '" required>' +
+                '<span>' + escapeAttr(item.name) +
+                (item.size ? '<small>' + escapeAttr(item.size) + '</small>' : '') +
+                '</span></label>';
+        }).join('');
+    }
+
+    if (productList && sizeModelList) {
+        productList.addEventListener('change', function (e) {
+            if (e.target && e.target.name === 'product_required') {
+                renderSizeModel(e.target.value);
+            }
+        });
+    }
+
+    /* Contact phone field -> country -> city suggestions */
+    const phoneInput = document.getElementById('contactPhone');
+    const cityInput = document.getElementById('contactCity');
+    const cityOptions = document.getElementById('cityOptionsNexgen');
+    const cityCache = {};
+
+    function setCities(cities) {
+        if (!cityOptions) return;
+        cityOptions.innerHTML = (cities || []).map(function (c) {
+            return '<option value="' + escapeAttr(c) + '"></option>';
+        }).join('');
+    }
+
+    function loadCities(countryName) {
+        if (!countryName || !cityOptions) return;
+        if (cityCache[countryName]) { setCities(cityCache[countryName]); return; }
+        setCities([]);
+        fetch('https://countriesnow.space/api/v0.1/countries/cities/q?country=' + encodeURIComponent(countryName))
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data && !data.error && Array.isArray(data.data)) {
+                    cityCache[countryName] = data.data;
+                    setCities(data.data);
+                }
+            })
+            .catch(function () { /* leave City as free text */ });
+    }
+
+    if (phoneInput && typeof window.intlTelInput === 'function') {
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: 'ae',
+            separateDialCode: true,
+            preferredCountries: ['ae', 'sa', 'qa', 'kw', 'om', 'bh']
+        });
+
+        function syncCountry() {
+            const data = iti.getSelectedCountryData();
+            if (!data || !data.name) return;
+            const countryName = data.name.replace(/\s*\(.*$/, '').trim();
+            if (cityInput) cityInput.placeholder = 'Select or type a city in ' + countryName;
+            loadCities(countryName);
+        }
+
+        phoneInput.addEventListener('countrychange', syncCountry);
+        syncCountry();
+    }
+})();

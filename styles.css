@@ -11442,3 +11442,79 @@ a {
    END PERFORMANCE OPTIMIZATIONS
    ============================================ */
 
+
+/* ===== Home "Contact Us" form: Product Required / Size & Model lists ===== */
+.product-list-nexgen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 0.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.product-option-nexgen {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    color: #1a365d;
+}
+
+.product-option-nexgen:hover {
+    border-color: #3b82f6;
+    background: #f1f6ff;
+}
+
+.product-option-nexgen input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #3b82f6;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.product-option-nexgen span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+    font-weight: 600;
+}
+
+.product-option-nexgen span small {
+    font-weight: 400;
+    font-size: 0.78rem;
+    color: #64748b;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.product-option-nexgen:has(input[type="radio"]:checked) {
+    border-color: #3b82f6;
+    background: #e8f1ff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.size-model-empty {
+    margin: 0;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+}
+
+/* intl-tel-input fits the form field width */
+.form-group-nexgen .iti {
+    width: 100%;
+}
